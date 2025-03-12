@@ -69,7 +69,7 @@ class ModelTrainer:
 
     def train(self, num_epochs, batch_size=32, verbose=True, start_epoch=0):
         if self.checkpoint_path is not None:
-            checkpoint = torch.load(self.checkpoint_path, map_location=self.device)
+            checkpoint = torch.load(self.checkpoint_path, map_location=self.device, weights_only=False)
             self.model.load_state_dict(checkpoint["model_state_dict"])
             self.optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
             start_epoch = checkpoint["epoch"] + 1
