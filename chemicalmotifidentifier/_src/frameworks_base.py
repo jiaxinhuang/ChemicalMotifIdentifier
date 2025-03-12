@@ -173,7 +173,7 @@ class BaseChemicalMotifIdentifier:
         )
         self.device = device
         net.load_state_dict(
-            torch.load(self.model_config["model_load"], map_location=device)
+            torch.load(self.model_config["model_load"], map_location=device, weights_only=False)
         )
         net.double().to(device)
         return net

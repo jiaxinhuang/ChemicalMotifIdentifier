@@ -26,7 +26,7 @@ class OvitoData(InMemoryDataset):
         self.rounding_edge_vec_value = rounding_edge_vec_value
         self.one_hot_dim = one_hot_dim
         super().__init__(root, transform, pre_transform, pre_filter)
-        self.data, self.slices = torch.load(self.processed_paths[0])
+        self.data, self.slices = torch.load(self.processed_paths[0], weights_only=False)
 
     @property
     def raw_file_names(self):
@@ -269,7 +269,7 @@ class SyntheticDataset(InMemoryDataset):
         self.pre_modification = pre_modification
         self.one_hot_dim = one_hot_dim
         super().__init__(root, transform, pre_transform, pre_filter)
-        self.data, self.slices = torch.load(self.processed_paths[0])
+        self.data, self.slices = torch.load(self.processed_paths[0], weights_only=False)
 
     @property
     def raw_file_names(self):
@@ -288,7 +288,7 @@ class SyntheticDataset(InMemoryDataset):
         pass
 
     def get_skeleton_graph(self):
-        graph = torch.load(self.skeleton_graph_path)
+        graph = torch.load(self.skeleton_graph_path, weights_only=False)
 
         if self.pre_modification is not None:
             for modif in self.pre_modification:
@@ -299,7 +299,7 @@ class SyntheticDataset(InMemoryDataset):
     def get_atomic_types(
         self,
     ):
-        all_types = np.array(torch.load(self.atom_types_path))
+        all_types = np.array(torch.load(self.atom_types_path, weights_only=False))
 
         # to use same network, we choose a 5 lengh encoder so need to add the zeros
         if all_types.shape[-1] != self.one_hot_dim:

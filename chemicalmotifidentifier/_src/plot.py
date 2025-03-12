@@ -97,7 +97,8 @@ class Plot:
 
     def get_skeleton_graph(self):
         self.skeleton_graph = torch.load(
-            self.graph_folder + f"/{self.crystal_structure}_1nn.pt"
+            self.graph_folder + f"/{self.crystal_structure}_1nn.pt",
+            weights_only=False
         )
 
         if self.crystal_structure == "bcc":
